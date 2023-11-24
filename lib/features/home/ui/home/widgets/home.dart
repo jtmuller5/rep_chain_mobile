@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rep_chain_mobile/app/services.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -6,7 +7,14 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('Welcome to Flutter Fast!'),
-    );
+        child: Column(
+      children: [
+        OutlinedButton(
+            onPressed: () async {
+              await credentialService.createWallet('jtmuller5@gmail.com');
+            },
+            child: Text('Create Wallet'))
+      ],
+    ),);
   }
 }

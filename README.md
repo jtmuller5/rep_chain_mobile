@@ -1,16 +1,8 @@
-# Flutter Fast
+# Rep Chain Mobile
 
-A new Flutter project.
+Bring your Web2 reputation to Web3.
 
 # Getting Started
-
-## Firebase Setup
-
-In the root of your project, run the following command:
-
-```
-flutterfire config
-```
 
 ## Config.json
 
@@ -18,7 +10,7 @@ In the assets folder of your project, fill in the missing environment variables 
 
 The following variable will come from RevenueCat:
 
-- GOOGLE_SDK_KEY
+- TRINSIC_AUTH_TOKEN
 - IOS_SDK_KEY
 - AMAZON_SDK_KEY
 
@@ -102,3 +94,6 @@ Devices for [screenshots](https://stackoverflow.com/questions/53297870/wrong-scr
 
 - Occasionally, you may need to update th distributionUrl in android/gradle/wrapper/gradle-wrapper.properties to the latest version of gradle. You can
   find the latest version [here](https://services.gradle.org/distributions/).
+
+# Resources 
+- https://github.com/trinsic-id/sdk-examples/tree/main/trinsic_flutter

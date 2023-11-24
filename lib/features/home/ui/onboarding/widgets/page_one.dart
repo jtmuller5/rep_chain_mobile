@@ -16,7 +16,7 @@ class PageOne extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Welcome to the Flutter Fast app!',
+              'Welcome to the Rep Chain!',
               textAlign: TextAlign.center,
               style: context.headlineSmall,
             ).animate(effects: [
