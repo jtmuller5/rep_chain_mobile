@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rep_chain_mobile/app/services.dart';
 import 'package:trinsic_dart/trinsic_dart.dart';
 
 @lazySingleton
@@ -14,11 +15,25 @@ class CredentialService {
     authenticated.value = val;
   }
 
-  void checkAuthentication() {
+  void authenticateWallet(String authToken){
+    saveAuthToken(authToken);
+    setAuthenticated(true);
+  }
 
+  void saveAuthToken(String authToken){
+    sharedPrefs.setString('authToken', authToken);
+    trinsic.serviceOptions.authToken = authToken;
+    setAuthenticated(true);
+  }
+
+  void clearAuthToken(){
+    sharedPrefs.remove('authToken');
+    trinsic.serviceOptions.authToken = '';
+    setAuthenticated(false);
   }
 
   Future<GetMyInfoResponse?> getMyWallet() async {
+    trinsic.serviceOptions.authToken = sharedPrefs.getString('authToken') ?? '';
     try {
       GetMyInfoResponse response = await trinsic.wallet().getMyInfo();
 
@@ -30,31 +45,6 @@ class CredentialService {
     } catch(e) {
       debugPrint('getMyWallet error: $e');
       return null;
-    }
-  }
-
-  /// Create a new wallet for a given email address
-  Future<void> createWallet(String email) async {
-    try {
-      String ecosystemId = const String.fromEnvironment("TRINSIC_ECOSYSTEM_ID");
-
-      debugPrint('ecosystemId: $ecosystemId');
-      CreateWalletResponse newWallet = await trinsic.wallet().createWallet(
-            CreateWalletRequest(
-              ecosystemId: const String.fromEnvironment("TRINSIC_ECOSYSTEM_ID"),
-              identity: CreateWalletRequest_ExternalIdentity(
-                identity: email,
-                provider: IdentityProvider.Email, // Email, Phone, Passkey
-              ),
-            ),
-          );
-      trinsic.serviceOptions.authToken = newWallet.authToken;
-      GetMyInfoResponse walletInfo = await trinsic.wallet().getMyInfo();
-      JsonEncoder encoder = const JsonEncoder.withIndent('  ');
-      String prettyprint = encoder.convert(walletInfo.writeToJsonMap());
-      debugPrint(prettyprint);
-    } catch (e) {
-      debugPrint('createWallet error: $e');
     }
   }
 

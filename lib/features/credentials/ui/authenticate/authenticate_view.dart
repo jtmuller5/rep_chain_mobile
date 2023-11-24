@@ -49,9 +49,9 @@ class AuthenticateView extends StatelessWidget {
                                   Expanded(
                                     child: OutlinedButton(
                                         onPressed: () async {
-                                          router.push(ExistingWalletRoute());
+                                          router.push(const ExistingWalletRoute());
                                         },
-                                        child: Text('Use existing wallet')),
+                                        child: const Text('Use existing wallet')),
                                   ),
                                 ],
                               ),
@@ -60,9 +60,9 @@ class AuthenticateView extends StatelessWidget {
                                   Expanded(
                                     child: OutlinedButton(
                                         onPressed: () async {
-                                          router.push(NewWalletRoute());
+                                          router.push(const NewWalletRoute());
                                         },
-                                        child: Text('Create new wallet')),
+                                        child: const Text('Create new wallet')),
                                   ),
                                 ],
                               ),

@@ -23,6 +23,13 @@ class HomeDrawer extends StatelessWidget {
                       child: Image.asset('assets/images/logo.png'),
                     ),
                   ),
+                  ListTile(
+                    title:Text('Sign Out'),
+                    onTap: (){
+                      credentialService.clearAuthToken();
+                      router.pushAndPopUntil(const AuthenticateRoute(), predicate: (route) => false);
+                    }
+                  )
                 ],
               ),
             ),

@@ -1,6 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:rep_chain_mobile/app/constants.dart';
+import 'package:rep_chain_mobile/app/router.dart';
+import 'package:rep_chain_mobile/app/services.dart';
 import 'package:rep_chain_mobile/app/text_theme.dart';
 import 'verify_wallet_view_model.dart';
 
@@ -23,7 +25,7 @@ class VerifyWalletView extends StatelessWidget {
               children: [
                 TextField(
                   controller: model.codeController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Code',
                   ),
                 ),
@@ -32,17 +34,29 @@ class VerifyWalletView extends StatelessWidget {
                 gap16,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: [IconButton.outlined(onPressed: () {
-                    try {
-                      model.verifyCode();
-                    } catch (e) {
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(e.toString()),
-                        ));
-                      }
-                    }
-                  }, icon: const Icon(Icons.arrow_forward))],
+                  children: [
+                    IconButton.outlined(
+                        onPressed: () async {
+                          try {
+                            await model.verifyCode();
+
+                            router.pushAndPopUntil(const HomeRoute(), predicate: (route) => false);
+                          } catch (e) {
+                            if (context.mounted) {
+                              if (e.toString().contains('invalid confirmation code')) {
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                  content: Text('Invalid code'),
+                                ));
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text(e.toString()),
+                                ));
+                              }
+                            }
+                          }
+                        },
+                        icon: const Icon(Icons.arrow_forward))
+                  ],
                 )
               ],
             ));

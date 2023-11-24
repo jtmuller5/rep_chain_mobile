@@ -7,19 +7,15 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Column(
-      children: [
-        OutlinedButton(
-            onPressed: () async {
-              await credentialService.createWallet('jtmuller5@gmail.com');
-            },
-            child: Text('Create Wallet')),
-        OutlinedButton(
-            onPressed: () async {
-              await credentialService.getMyWallet();
-            },
-            child: Text('My Wallet'))
-      ],
-    ),);
+      child: Column(
+        children: [
+          OutlinedButton(
+              onPressed: () async {
+                await credentialService.getMyWallet();
+              },
+              child: const Text('My Wallet')),
+        ],
+      ),
+    );
   }
 }

@@ -35,14 +35,27 @@ class ExistingWalletView extends StatelessWidget {
                   children: [
                     IconButton.outlined(
                         onPressed: () async {
+                          if (model.emailController.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Text('Please enter your email address.'),
+                            ));
+                            return;
+                          }
                           try {
                             String? challenge = await model.sendVerificationCode();
-                            router.push( VerifyWalletRoute(challenge: challenge!));
+                            router.push(VerifyWalletRoute(challenge: challenge!));
                           } catch (e) {
                             if (context.mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text(e.toString()),
-                              ));
+                              if (e.toString().contains('not a valid identity for the provider type')) {
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                  content: Text('Please enter a valid email address.'),
+                                ));
+                                return;
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text(e.toString()),
+                                ));
+                              }
                             }
                           }
                         },
