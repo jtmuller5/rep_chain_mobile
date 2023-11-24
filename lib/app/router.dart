@@ -1,4 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
+import 'package:rep_chain_mobile/features/credentials/ui/authenticate/authenticate_view.dart';
+import 'package:rep_chain_mobile/features/credentials/ui/existing_wallet/existing_wallet_view.dart';
+import 'package:rep_chain_mobile/features/credentials/ui/new_wallet/new_wallet_view.dart';
+import 'package:rep_chain_mobile/features/credentials/ui/verify_wallet/verify_wallet_view.dart';
 import 'package:rep_chain_mobile/features/home/ui/home/home_view.dart';
 
 import 'package:rep_chain_mobile/features/home/ui/onboarding/onboarding_view.dart';
@@ -11,8 +16,12 @@ part 'router.gr.dart';
 class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: HomeRoute.page, initial: true),
+        AutoRoute(page: AuthenticateRoute.page, initial: true),
+        AutoRoute(page: HomeRoute.page),
         AutoRoute(page: OnboardingRoute.page),
         AutoRoute(page: SettingsRoute.page),
+        AutoRoute(page: ExistingWalletRoute.page),
+        AutoRoute(page: NewWalletRoute.page),
+        AutoRoute(page: VerifyWalletRoute.page),
       ];
 }

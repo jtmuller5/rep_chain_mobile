@@ -57,8 +57,8 @@ class _HomeViewState extends State<HomeView> {
           setIndex(index);
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.rss_feed), label: 'Feeds'),
+          BottomNavigationBarItem(icon: Icon(Icons.badge_outlined), label: 'Badges'),
+          BottomNavigationBarItem(icon: Icon(Icons.chat_outlined), label: 'Feeds'),
         ],
       ),
     );

@@ -13,7 +13,12 @@ class Home extends StatelessWidget {
             onPressed: () async {
               await credentialService.createWallet('jtmuller5@gmail.com');
             },
-            child: Text('Create Wallet'))
+            child: Text('Create Wallet')),
+        OutlinedButton(
+            onPressed: () async {
+              await credentialService.getMyWallet();
+            },
+            child: Text('My Wallet'))
       ],
     ),);
   }

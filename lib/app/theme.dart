@@ -8,12 +8,14 @@ ThemeData lightTheme = FlexThemeData.light(
   fontFamily: _fontFamily,
   scheme: FlexScheme.flutterDash,
   colorScheme: lightLogoColorScheme,
+  useMaterial3: true,
 );
 
 ThemeData darkTheme = FlexThemeData.dark(
   fontFamily: _fontFamily,
   scheme: FlexScheme.flutterDash,
   colorScheme: darkLogoColorScheme,
+  useMaterial3: true,
 );
 
 ColorScheme? lightLogoColorScheme;
