@@ -12,17 +12,20 @@ class FeedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FeedViewModelBuilder(
-        builder: (context, model) {
-          return Scaffold(
+      builder: (context, model) {
+        return Scaffold(
             appBar: AppBar(
-              title: Text('Feed'),
+              title: Text(feed.name),
             ),
-            body: Center(
-              child: Text('Home'),
-            )
-          );
-        },
-      );
+            body: ListView.builder(
+              itemCount: model.messages.value.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(model.messages.value[index]),
+                );
+              },
+            ),);
+      },
+    );
   }
 }
-      

@@ -18,11 +18,13 @@ class FeedsViewModel extends ViewModel<FeedsViewModel> {
     Feed(
       name: 'General',
       description: 'Chat with the Rep Chain community',
+      authToken: String.fromEnvironment('GENERAL_FEED_AUTH_TOKEN'),
       vcs: [],
     ),
     Feed(
       name: 'Stack Overflow',
       description: 'Stack Overflow is the largest, most trusted online community for developers to learn, share their programming knowledge, and build their careers.',
+      authToken: String.fromEnvironment('STACK_OVERFLOW_FEED_AUTH_TOKEN'),
       vcs: [],
     ),
   ];
@@ -57,11 +59,14 @@ class Feed {
 
   final String description;
 
+  final String authToken;
+
   final List<String> vcs;
 
   Feed({
     required this.name,
     required this.description,
+    required this.authToken,
     required this.vcs,
   });
 }

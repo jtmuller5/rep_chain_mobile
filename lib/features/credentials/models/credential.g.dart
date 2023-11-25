@@ -30,10 +30,7 @@ CredentialData _$CredentialDataFromJson(Map<String, dynamic> json) =>
       credentialSchema: (json['credentialSchema'] as List<dynamic>?)
           ?.map((e) => CredentialSchema.fromJson(e as Map<String, dynamic>))
           .toList(),
-      credentialSubject: json['credentialSubject'] == null
-          ? null
-          : CredentialSubject.fromJson(
-              json['credentialSubject'] as Map<String, dynamic>),
+      credentialSubject: json['credentialSubject'],
       id: json['id'] as String?,
       issuanceDate: json['issuanceDate'] == null
           ? null
@@ -55,7 +52,7 @@ Map<String, dynamic> _$CredentialDataToJson(CredentialData instance) =>
       'type': instance.type,
       'credentialSchema':
           instance.credentialSchema?.map((e) => e.toJson()).toList(),
-      'credentialSubject': instance.credentialSubject?.toJson(),
+      'credentialSubject': instance.credentialSubject,
       'id': instance.id,
       'issuanceDate': instance.issuanceDate?.toIso8601String(),
       'credentialStatus': instance.credentialStatus?.toJson(),
@@ -89,25 +86,6 @@ Map<String, dynamic> _$CredentialSchemaToJson(CredentialSchema instance) =>
     <String, dynamic>{
       'id': instance.id,
       'type': instance.type,
-    };
-
-CredentialSubject _$CredentialSubjectFromJson(Map<String, dynamic> json) =>
-    CredentialSubject(
-      user: json['User'] as String?,
-      date:
-          json['Date'] == null ? null : DateTime.parse(json['Date'] as String),
-      value: json['Value'] as int?,
-      platform: json['Platform'] as String?,
-      metric: json['Metric'] as String?,
-    );
-
-Map<String, dynamic> _$CredentialSubjectToJson(CredentialSubject instance) =>
-    <String, dynamic>{
-      'User': instance.user,
-      'Date': instance.date?.toIso8601String(),
-      'Value': instance.value,
-      'Platform': instance.platform,
-      'Metric': instance.metric,
     };
 
 Proof _$ProofFromJson(Map<String, dynamic> json) => Proof(

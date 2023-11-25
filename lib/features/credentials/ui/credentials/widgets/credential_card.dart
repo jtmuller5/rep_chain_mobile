@@ -4,6 +4,7 @@ import 'package:rep_chain_mobile/app/services.dart';
 import 'package:rep_chain_mobile/app/text_theme.dart';
 import 'package:rep_chain_mobile/app/theme.dart';
 import 'package:rep_chain_mobile/features/credentials/models/credential.dart';
+import 'package:rep_chain_mobile/features/credentials/models/reputation.dart';
 import 'package:rep_chain_mobile/features/credentials/services/credential_service.dart';
 
 class CredentialCard extends StatelessWidget {
@@ -13,6 +14,9 @@ class CredentialCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    Reputation reputation = credential.data?.credentialSubject as Reputation;
+
     return Theme(
       data: Theme.of(context).copyWith(
         dividerColor: Colors.transparent,
@@ -28,9 +32,9 @@ class CredentialCard extends StatelessWidget {
           )
         ]),
         child: ExpansionTile(
-          leading: CredentialService.platformImages.keys.contains(credential.data?.credentialSubject?.platform ?? 'Unknown')
+          leading: CredentialService.platformImages.keys.contains(reputation.platform ?? 'Unknown')
               ? Image.asset(
-                  CredentialService.platformImages[credential.data?.credentialSubject?.platform ?? 'Unknown']!,
+                  CredentialService.platformImages[reputation.platform ?? 'Unknown']!,
                   width: 48,
                   fit: BoxFit.cover,
                 )
@@ -38,7 +42,7 @@ class CredentialCard extends StatelessWidget {
           collapsedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           title: Text(
-            credential.data?.credentialSubject?.platform ?? 'Unknown',
+            reputation.platform ?? 'Unknown',
             style: context.titleMedium,
           ),
           expandedAlignment: Alignment.centerLeft,
@@ -50,12 +54,12 @@ class CredentialCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(credential.data?.credentialSubject?.value?.toStringAsFixed(0) ?? 'Value', style: context.bodyMedium.bold),
+                      Text(reputation.value?.toStringAsFixed(0) ?? 'Value', style: context.bodyMedium.bold),
                       gap4,
-                      Text(credential.data?.credentialSubject?.metric ?? 'Metric', style: context.bodyMedium),
+                      Text(reputation.metric ?? 'Metric', style: context.bodyMedium),
                     ],
                   ),
-                  Text('Issued on ${credential.data?.credentialSubject?.date ?? 'Unknown'}', style: context.bodyMedium),
+                  Text('Issued on ${reputation.date ?? 'Unknown'}', style: context.bodyMedium),
                   Text(credential.id ?? 'DID ID', style: context.bodyMedium.secondary),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),

@@ -152,7 +152,8 @@ class DidDetailsRoute extends PageRouteInfo<DidDetailsRouteArgs> {
 
   static const String name = 'DidDetailsRoute';
 
-  static const PageInfo<DidDetailsRouteArgs> page = PageInfo<DidDetailsRouteArgs>(name);
+  static const PageInfo<DidDetailsRouteArgs> page =
+      PageInfo<DidDetailsRouteArgs>(name);
 }
 
 class DidDetailsRouteArgs {
@@ -240,7 +241,8 @@ class GetCredentialRoute extends PageRouteInfo<GetCredentialRouteArgs> {
 
   static const String name = 'GetCredentialRoute';
 
-  static const PageInfo<GetCredentialRouteArgs> page = PageInfo<GetCredentialRouteArgs>(name);
+  static const PageInfo<GetCredentialRouteArgs> page =
+      PageInfo<GetCredentialRouteArgs>(name);
 }
 
 class GetCredentialRouteArgs {
@@ -347,7 +349,8 @@ class VerifyWalletRoute extends PageRouteInfo<VerifyWalletRouteArgs> {
 
   static const String name = 'VerifyWalletRoute';
 
-  static const PageInfo<VerifyWalletRouteArgs> page = PageInfo<VerifyWalletRouteArgs>(name);
+  static const PageInfo<VerifyWalletRouteArgs> page =
+      PageInfo<VerifyWalletRouteArgs>(name);
 }
 
 class VerifyWalletRouteArgs {

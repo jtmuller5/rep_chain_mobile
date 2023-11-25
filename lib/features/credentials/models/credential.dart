@@ -35,7 +35,7 @@ class CredentialData {
 
   List<CredentialSchema>? credentialSchema;
 
-  CredentialSubject? credentialSubject;
+  dynamic credentialSubject;
 
   String? id;
 
@@ -101,36 +101,6 @@ class CredentialSchema {
   factory CredentialSchema.fromJson(Map<String, dynamic> json) => _$CredentialSchemaFromJson(json);
 
   Map<String, dynamic> toJson() => _$CredentialSchemaToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class CredentialSubject {
-  @JsonKey(name: 'User')
-  String? user;
-
-  @JsonKey(name: 'Date')
-  DateTime? date;
-
-  @JsonKey(name: 'Value')
-  int? value;
-
-  @JsonKey(name: 'Platform')
-  String? platform;
-
-  @JsonKey(name: 'Metric')
-  String? metric;
-
-  CredentialSubject({
-    this.user,
-    this.date,
-    this.value,
-    this.platform,
-    this.metric,
-  });
-
-  factory CredentialSubject.fromJson(Map<String, dynamic> json) => _$CredentialSubjectFromJson(json);
-
-  Map<String, dynamic> toJson() => _$CredentialSubjectToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)

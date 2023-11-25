@@ -28,38 +28,41 @@ class FeedsView extends StatelessWidget {
                     begin: Offset(0, 0.2),
                     end: Offset(0, 0),
                   )],
-                  child: DecoratedBox(
+                  child: InkWell(borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    onTap: () {
+                      router.push(FeedRoute(feed: feed));
+                    },
+                    child: DecoratedBox(
 
-                    decoration: BoxDecoration(
-                        color: context.background,
-                        borderRadius: const BorderRadius.all(Radius.circular(8)),
-                        border: Border.all(color: context.onBackground.withOpacity(.1)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: context.onBackground.withOpacity(.1),
-                            blurRadius: 8,
-                            offset: const Offset(0, 4),
+                      decoration: BoxDecoration(
+                          color: context.background,
+                          borderRadius: const BorderRadius.all(Radius.circular(8)),
+                          border: Border.all(color: context.onBackground.withOpacity(.1)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: context.onBackground.withOpacity(.1),
+                              blurRadius: 8,
+                              offset: const Offset(0, 4),
+                            ),
+                          ]),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ListTile(
+
+                            title: Text(feed.name),
+                            subtitle: Text(feed.description),
+
                           ),
-                        ]),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ListTile(
+                          if(feed.vcs.isEmpty)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Text("Open", style: context.bodyMedium.copyWith(color: Colors.green)),
+                            ),
+                          gap8,
 
-                          title: Text(feed.name),
-                          subtitle: Text(feed.description),
-                          onTap: () {
-                           router.push(FeedRoute(feed: feed));
-                          },
-                        ),
-                        if(feed.vcs.isEmpty)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Text("Open", style: context.bodyMedium.copyWith(color: Colors.green)),
-                          ),
-                        gap8,
-
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 );
