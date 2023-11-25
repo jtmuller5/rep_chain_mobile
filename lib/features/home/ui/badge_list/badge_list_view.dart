@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:rep_chain_mobile/app/router.dart';
 import 'package:rep_chain_mobile/app/services.dart';
 import 'package:rep_chain_mobile/app/theme.dart';
@@ -23,20 +24,34 @@ class BadgeListView extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      onTap: () {
-                        router.push(GetCredentialRoute(platform: model.providers.keys.toList()[index]));
-                      },
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(color: context.background, borderRadius: const BorderRadius.all(Radius.circular(8)), boxShadow: [
-                           BoxShadow(
-                            color: context.onBackground.withOpacity(.1),
-                            blurRadius: 8,
-                            offset: const Offset(0, 4),
-                          ),
-                        ]),
-                        child: Image.asset(model.providers.values.toList()[index]),
+                    child: Animate(
+                      effects: [
+                        SlideEffect(
+                          begin: Offset(0, 0.2),
+                          end: Offset(0, 0),
+                          delay: Duration(milliseconds: 100 * index),
+                        ),
+                        FadeEffect(),
+                      ],
+                      child: InkWell(
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        onTap: () {
+                          router.push(GetCredentialRoute(platform: model.providers.keys.toList()[index]));
+                        },
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: context.background,
+                              borderRadius: const BorderRadius.all(Radius.circular(8)),
+                              border: Border.all(color: context.onBackground.withOpacity(.1)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: context.onBackground.withOpacity(.1),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ]),
+                          child: Image.asset(model.providers.values.toList()[index]),
+                        ),
                       ),
                     ),
                   );

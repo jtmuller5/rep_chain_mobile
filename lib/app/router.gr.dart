@@ -43,6 +43,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const ExistingWalletView(),
       );
     },
+    FeedRoute.name: (routeData) {
+      final args = routeData.argsAs<FeedRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: FeedView(
+          key: args.key,
+          feed: args.feed,
+        ),
+      );
+    },
     GetCredentialRoute.name: (routeData) {
       final args = routeData.argsAs<GetCredentialRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -142,8 +152,7 @@ class DidDetailsRoute extends PageRouteInfo<DidDetailsRouteArgs> {
 
   static const String name = 'DidDetailsRoute';
 
-  static const PageInfo<DidDetailsRouteArgs> page =
-      PageInfo<DidDetailsRouteArgs>(name);
+  static const PageInfo<DidDetailsRouteArgs> page = PageInfo<DidDetailsRouteArgs>(name);
 }
 
 class DidDetailsRouteArgs {
@@ -177,6 +186,43 @@ class ExistingWalletRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FeedView]
+class FeedRoute extends PageRouteInfo<FeedRouteArgs> {
+  FeedRoute({
+    Key? key,
+    required Feed feed,
+    List<PageRouteInfo>? children,
+  }) : super(
+          FeedRoute.name,
+          args: FeedRouteArgs(
+            key: key,
+            feed: feed,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'FeedRoute';
+
+  static const PageInfo<FeedRouteArgs> page = PageInfo<FeedRouteArgs>(name);
+}
+
+class FeedRouteArgs {
+  const FeedRouteArgs({
+    this.key,
+    required this.feed,
+  });
+
+  final Key? key;
+
+  final Feed feed;
+
+  @override
+  String toString() {
+    return 'FeedRouteArgs{key: $key, feed: $feed}';
+  }
+}
+
+/// generated route for
 /// [GetCredentialView]
 class GetCredentialRoute extends PageRouteInfo<GetCredentialRouteArgs> {
   GetCredentialRoute({
@@ -194,8 +240,7 @@ class GetCredentialRoute extends PageRouteInfo<GetCredentialRouteArgs> {
 
   static const String name = 'GetCredentialRoute';
 
-  static const PageInfo<GetCredentialRouteArgs> page =
-      PageInfo<GetCredentialRouteArgs>(name);
+  static const PageInfo<GetCredentialRouteArgs> page = PageInfo<GetCredentialRouteArgs>(name);
 }
 
 class GetCredentialRouteArgs {
@@ -302,8 +347,7 @@ class VerifyWalletRoute extends PageRouteInfo<VerifyWalletRouteArgs> {
 
   static const String name = 'VerifyWalletRoute';
 
-  static const PageInfo<VerifyWalletRouteArgs> page =
-      PageInfo<VerifyWalletRouteArgs>(name);
+  static const PageInfo<VerifyWalletRouteArgs> page = PageInfo<VerifyWalletRouteArgs>(name);
 }
 
 class VerifyWalletRouteArgs {

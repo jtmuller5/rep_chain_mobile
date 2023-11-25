@@ -35,6 +35,7 @@ class CredentialService {
   }
 
   void saveAuthToken(String authToken) {
+    debugPrint('AuthToken: $authToken');
     sharedPrefs.setString('authToken', authToken);
     trinsic.serviceOptions.authToken = authToken;
     setAuthenticated(true);

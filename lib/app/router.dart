@@ -6,6 +6,8 @@ import 'package:rep_chain_mobile/features/credentials/ui/existing_wallet/existin
 import 'package:rep_chain_mobile/features/credentials/ui/new_wallet/new_wallet_view.dart';
 import 'package:rep_chain_mobile/features/credentials/ui/verify_wallet/verify_wallet_view.dart';
 import 'package:rep_chain_mobile/features/dids/ui/did_details/did_details_view.dart';
+import 'package:rep_chain_mobile/features/feeds/ui/feed/feed_view.dart';
+import 'package:rep_chain_mobile/features/feeds/ui/feeds/feeds_view_model.dart';
 import 'package:rep_chain_mobile/features/home/ui/get_credential/get_credential_view.dart';
 import 'package:rep_chain_mobile/features/home/ui/home/home_view.dart';
 
@@ -24,10 +26,11 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: OnboardingRoute.page),
         AutoRoute(page: SettingsRoute.page),
         AutoRoute(page: ExistingWalletRoute.page),
+        AutoRoute(page: FeedRoute.page),
         AutoRoute(page: NewWalletRoute.page),
         AutoRoute(page: VerifyWalletRoute.page),
         AutoRoute(page: GetCredentialRoute.page),
         AutoRoute(page: CredentialsRoute.page),
-    AutoRoute(page: DidDetailsRoute.page),
+        AutoRoute(page: DidDetailsRoute.page),
       ];
 }
