@@ -21,16 +21,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AuthenticateView(),
       );
     },
-    CredentialListRoute.name: (routeData) {
-      final args = routeData.argsAs<CredentialListRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: CredentialListView(
-          key: args.key,
-          provider: args.provider,
-        ),
-      );
-    },
     CredentialsRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -41,6 +31,16 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const ExistingWalletView(),
+      );
+    },
+    GetCredentialRoute.name: (routeData) {
+      final args = routeData.argsAs<GetCredentialRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: GetCredentialView(
+          key: args.key,
+          platform: args.platform,
+        ),
       );
     },
     HomeRoute.name: (routeData) {
@@ -101,44 +101,6 @@ class AuthenticateRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [CredentialListView]
-class CredentialListRoute extends PageRouteInfo<CredentialListRouteArgs> {
-  CredentialListRoute({
-    Key? key,
-    required String provider,
-    List<PageRouteInfo>? children,
-  }) : super(
-          CredentialListRoute.name,
-          args: CredentialListRouteArgs(
-            key: key,
-            provider: provider,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'CredentialListRoute';
-
-  static const PageInfo<CredentialListRouteArgs> page =
-      PageInfo<CredentialListRouteArgs>(name);
-}
-
-class CredentialListRouteArgs {
-  const CredentialListRouteArgs({
-    this.key,
-    required this.provider,
-  });
-
-  final Key? key;
-
-  final String provider;
-
-  @override
-  String toString() {
-    return 'CredentialListRouteArgs{key: $key, provider: $provider}';
-  }
-}
-
-/// generated route for
 /// [CredentialsView]
 class CredentialsRoute extends PageRouteInfo<void> {
   const CredentialsRoute({List<PageRouteInfo>? children})
@@ -164,6 +126,44 @@ class ExistingWalletRoute extends PageRouteInfo<void> {
   static const String name = 'ExistingWalletRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [GetCredentialView]
+class GetCredentialRoute extends PageRouteInfo<GetCredentialRouteArgs> {
+  GetCredentialRoute({
+    Key? key,
+    required String platform,
+    List<PageRouteInfo>? children,
+  }) : super(
+          GetCredentialRoute.name,
+          args: GetCredentialRouteArgs(
+            key: key,
+            platform: platform,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'GetCredentialRoute';
+
+  static const PageInfo<GetCredentialRouteArgs> page =
+      PageInfo<GetCredentialRouteArgs>(name);
+}
+
+class GetCredentialRouteArgs {
+  const GetCredentialRouteArgs({
+    this.key,
+    required this.platform,
+  });
+
+  final Key? key;
+
+  final String platform;
+
+  @override
+  String toString() {
+    return 'GetCredentialRouteArgs{key: $key, platform: $platform}';
+  }
 }
 
 /// generated route for

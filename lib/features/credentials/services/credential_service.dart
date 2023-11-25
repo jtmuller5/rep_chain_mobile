@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rep_chain_mobile/app/services.dart';
+import 'package:rep_chain_mobile/features/credentials/models/credential.dart';
 import 'package:trinsic_dart/trinsic_dart.dart';
 
 @lazySingleton
@@ -19,6 +21,12 @@ class CredentialService {
 
   void setAuthenticated(bool val) {
     authenticated.value = val;
+  }
+
+  ValueNotifier<List<Credential>> credentials = ValueNotifier([]);
+
+  void setCredentials(List<Credential> val) {
+    credentials.value = val;
   }
 
   void authenticateWallet(String authToken) {
@@ -108,9 +116,7 @@ class CredentialService {
   Future<void> getCredentials() async {
     await trinsic.wallet().getItem(GetItemRequest(itemId: "default"));
   }
-  // urn:uuid:4d0a8ec91b864e8b85b9e06d49d95d60
-  // urn:uuid:a96ccb0b6ced40408ac5e7adf4547557
-  // urn:uuid:58bce5790f5e44ee92c48902ca8c5c53
+
   Future<void> deleteCredential() async {
     try {
       await trinsic.wallet().deleteItem(DeleteItemRequest(itemId: "urn:uuid:58bce5790f5e44ee92c48902ca8c5c53"));
@@ -118,6 +124,28 @@ class CredentialService {
     } catch (e) {
       debugPrint('deleteCredential error: $e');
       rethrow;
+    }
+  }
+
+  Future<void> loadCredentials() async {
+
+    try {
+      SearchResponse response = await credentialService.trinsic.wallet().searchWallet(SearchRequest());
+
+      log('Items: ' + response.items.toString());
+      List<Credential> creds = [];
+      // get Credentials from json
+      for (var item in response.items) {
+        try {
+          var cred = Credential.fromJson(jsonDecode(item));
+          creds.add(cred);
+        } catch (e) {
+          debugPrint('decode error: $e');
+        }
+      }
+      setCredentials(creds);
+    } catch (e) {
+      debugPrint('Error: $e');
     }
   }
 }

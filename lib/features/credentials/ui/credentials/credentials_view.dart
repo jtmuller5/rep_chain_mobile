@@ -18,9 +18,11 @@ class CredentialsView extends StatelessWidget {
             appBar: AppBar(
               title: const Text('Credentials'),
               actions: [
-                IconButton(onPressed: (){
-                  model.loadCredentials();
-                }, icon: Icon(Icons.refresh))
+                IconButton(
+                    onPressed: () {
+                      credentialService.loadCredentials();
+                    },
+                    icon: const Icon(Icons.refresh))
               ],
             ),
             body: ValueListenableBuilder(
@@ -31,9 +33,9 @@ class CredentialsView extends StatelessWidget {
                   }
 
                   return ListView.separated(
-                    itemCount: model.credentials.value.length,
+                    itemCount: credentialService.credentials.value.length,
                     itemBuilder: (context, index) {
-                      Credential credential = model.credentials.value[index];
+                      Credential credential = credentialService.credentials.value[index];
                       return DecoratedBox(
                         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: const [
                           BoxShadow(
@@ -43,9 +45,8 @@ class CredentialsView extends StatelessWidget {
                           )
                         ]),
                         child: ListTile(
-                          title:  Text(credential.data!.type!.firstWhere((element) => element != 'VerifiableCredential'), style: context.titleMedium),
-                          onTap: () {
-                          },
+                          title: Text(credential.data!.type!.firstWhere((element) => element != 'VerifiableCredential'), style: context.titleMedium),
+                          onTap: () {},
                         ),
                       );
                     },

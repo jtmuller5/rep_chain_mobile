@@ -26,14 +26,14 @@ class BadgeListView extends StatelessWidget {
                     child: InkWell(
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
                       onTap: () {
-                        router.push(CredentialListRoute(provider: model.providers.keys.toList()[index]));
+                        router.push(GetCredentialRoute(platform: model.providers.keys.toList()[index]));
                       },
                       child: DecoratedBox(
                         decoration: BoxDecoration(color: context.background, borderRadius: const BorderRadius.all(Radius.circular(8)), boxShadow: [
                            BoxShadow(
                             color: context.onBackground.withOpacity(.1),
                             blurRadius: 8,
-                            offset: Offset(0, 4),
+                            offset: const Offset(0, 4),
                           ),
                         ]),
                         child: Image.asset(model.providers.values.toList()[index]),
