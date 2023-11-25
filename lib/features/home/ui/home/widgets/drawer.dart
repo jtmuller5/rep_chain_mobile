@@ -28,6 +28,7 @@ class HomeDrawer extends StatelessWidget {
                     leading: const Icon(Icons.wallet),
                     title: const Text('Credentials'),
                     onTap: () {
+                      Navigator.of(context).pop();
                       router.push(const CredentialsRoute());
                     },
                   ),
@@ -39,13 +40,13 @@ class HomeDrawer extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Wallet ID:'),
+                            Text('Wallet ID:', style: context.bodyMedium.bold),
                             Text(value?.wallet.walletId ?? '', style: context.bodySmall),
                             gap8,
-                            const Text('Public DID:'),
+                            Text('Public DID:', style: context.bodyMedium.bold),
                             Text(value?.wallet.publicDid ?? '', style: context.bodySmall),
                             gap8,
-                            const Text('Email:'),
+                            Text('Email:', style: context.bodyMedium.bold),
                             Text(value?.wallet.externalIdentities.firstOrNull?.id ?? '', style: context.bodySmall),
                           ],
                         ),

@@ -27,6 +27,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const CredentialsView(),
       );
     },
+    DidDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<DidDetailsRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: DidDetailsView(
+          key: args.key,
+          did: args.did,
+        ),
+      );
+    },
     ExistingWalletRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -112,6 +122,44 @@ class CredentialsRoute extends PageRouteInfo<void> {
   static const String name = 'CredentialsRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [DidDetailsView]
+class DidDetailsRoute extends PageRouteInfo<DidDetailsRouteArgs> {
+  DidDetailsRoute({
+    Key? key,
+    required String did,
+    List<PageRouteInfo>? children,
+  }) : super(
+          DidDetailsRoute.name,
+          args: DidDetailsRouteArgs(
+            key: key,
+            did: did,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'DidDetailsRoute';
+
+  static const PageInfo<DidDetailsRouteArgs> page =
+      PageInfo<DidDetailsRouteArgs>(name);
+}
+
+class DidDetailsRouteArgs {
+  const DidDetailsRouteArgs({
+    this.key,
+    required this.did,
+  });
+
+  final Key? key;
+
+  final String did;
+
+  @override
+  String toString() {
+    return 'DidDetailsRouteArgs{key: $key, did: $did}';
+  }
 }
 
 /// generated route for

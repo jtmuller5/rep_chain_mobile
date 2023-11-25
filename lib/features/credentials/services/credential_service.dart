@@ -158,6 +158,6 @@ class CredentialService {
     'Reddit': 'assets/images/reddit.png',
     'LinkedIn': 'assets/images/linkedin.png',
     'Twitter': 'assets/images/twitter.png',
-    'Dev.to': 'assets/images/devto.png',
+    'Dev.to': 'assets/images/dev.png',
   };
 }
