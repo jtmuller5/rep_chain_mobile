@@ -93,18 +93,17 @@ Map<String, dynamic> _$CredentialSchemaToJson(CredentialSchema instance) =>
 
 CredentialSubject _$CredentialSubjectFromJson(Map<String, dynamic> json) =>
     CredentialSubject(
-      userId: json['userId'] as String?,
-      checkDate: json['checkDate'] == null
-          ? null
-          : DateTime.parse(json['checkDate'] as String),
-      reputation: json['reputation'] as int?,
+      user: json['user'] as String?,
+      date:
+          json['date'] == null ? null : DateTime.parse(json['date'] as String),
+      value: json['value'] as int?,
     );
 
 Map<String, dynamic> _$CredentialSubjectToJson(CredentialSubject instance) =>
     <String, dynamic>{
-      'userId': instance.userId,
-      'checkDate': instance.checkDate?.toIso8601String(),
-      'reputation': instance.reputation,
+      'user': instance.user,
+      'date': instance.date?.toIso8601String(),
+      'value': instance.value,
     };
 
 Proof _$ProofFromJson(Map<String, dynamic> json) => Proof(

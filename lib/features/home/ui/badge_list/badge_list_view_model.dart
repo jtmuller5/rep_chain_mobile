@@ -15,8 +15,10 @@ class BadgeListViewModel extends ViewModel<BadgeListViewModel> {
   final Map<String, String> providers = {
     'Stack Overflow': 'assets/images/stack_overflow.png',
     'GitHub': 'assets/images/github.png',
-    'LinkedIn': 'assets/images/linkedin.png',
-    'Twitter': 'assets/images/twitter.png',
+    'Reddit': 'assets/images/reddit.png',
+    //'LinkedIn': 'assets/images/linkedin.png',
+    //'Twitter': 'assets/images/twitter.png',
+    'Dev.to': 'assets/images/dev.png',
   };
 
   static BadgeListViewModel of_(BuildContext context) => getModel<BadgeListViewModel>(context);

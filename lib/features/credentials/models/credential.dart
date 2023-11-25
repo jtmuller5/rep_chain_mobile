@@ -105,16 +105,16 @@ class CredentialSchema {
 
 @JsonSerializable(explicitToJson: true)
 class CredentialSubject {
-  String? userId;
+  String? user;
 
-  DateTime? checkDate;
+  DateTime? date;
 
-  int? reputation;
+  int? value;
 
   CredentialSubject({
-    this.userId,
-    this.checkDate,
-    this.reputation,
+    this.user,
+    this.date,
+    this.value,
   });
 
   factory CredentialSubject.fromJson(Map<String, dynamic> json) => _$CredentialSubjectFromJson(json);

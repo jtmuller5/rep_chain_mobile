@@ -1,6 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:rep_chain_mobile/app/constants.dart';
 import 'package:rep_chain_mobile/app/services.dart';
+import 'package:rep_chain_mobile/app/text_theme.dart';
 import 'package:rep_chain_mobile/features/credentials/models/credential.dart';
 import 'credentials_view_model.dart';
 
@@ -28,7 +30,7 @@ class CredentialsView extends StatelessWidget {
                     return const Center(child: CircularProgressIndicator());
                   }
 
-                  return ListView.builder(
+                  return ListView.separated(
                     itemCount: model.credentials.value.length,
                     itemBuilder: (context, index) {
                       Credential credential = model.credentials.value[index];
@@ -41,12 +43,13 @@ class CredentialsView extends StatelessWidget {
                           )
                         ]),
                         child: ListTile(
-                          title:  Text(credential.data!.type.toString()),
+                          title:  Text(credential.data!.type!.firstWhere((element) => element != 'VerifiableCredential'), style: context.titleMedium),
                           onTap: () {
                           },
                         ),
                       );
                     },
+                    separatorBuilder: (context, index) => gap8,
                     padding: const EdgeInsets.all(16.0),
                   );
                 }));

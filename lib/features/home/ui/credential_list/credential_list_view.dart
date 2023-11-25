@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:rep_chain_mobile/app/theme.dart';
 import 'credential_list_view_model.dart';
 
 @RoutePage()
@@ -17,12 +18,12 @@ class CredentialListView extends StatelessWidget {
               title: Text(provider),
             ),
             body: ListView(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               children: [
                 DecoratedBox(
-                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: const [
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [
                     BoxShadow(
-                      color: Colors.black12,
+                      color: context.onBackground.withOpacity(.1),
                       blurRadius: 8,
                       offset: Offset(0, 4),
                     )
@@ -31,7 +32,7 @@ class CredentialListView extends StatelessWidget {
                     title: const Text('Reputation'),
                     onTap: () {
                       model.getReputationCredential('12806961');
-                     // model.checkReputation('12806961');
+                      // model.checkReputation('12806961');
                     },
                   ),
                 )
