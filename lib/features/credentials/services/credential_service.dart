@@ -102,12 +102,22 @@ class CredentialService {
   }
 
   Future<void> getWallet(String id) async {
-    var trinsic = TrinsicService(null);
     await trinsic.wallet().getWalletInfo(GetWalletInfoRequest(walletId: id));
   }
 
   Future<void> getCredentials() async {
-    var trinsic = TrinsicService(null);
     await trinsic.wallet().getItem(GetItemRequest(itemId: "default"));
+  }
+  // urn:uuid:4d0a8ec91b864e8b85b9e06d49d95d60
+  // urn:uuid:a96ccb0b6ced40408ac5e7adf4547557
+  // urn:uuid:58bce5790f5e44ee92c48902ca8c5c53
+  Future<void> deleteCredential() async {
+    try {
+      await trinsic.wallet().deleteItem(DeleteItemRequest(itemId: "urn:uuid:58bce5790f5e44ee92c48902ca8c5c53"));
+      debugPrint('deleteCredential success');
+    } catch (e) {
+      debugPrint('deleteCredential error: $e');
+      rethrow;
+    }
   }
 }

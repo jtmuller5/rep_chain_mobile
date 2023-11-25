@@ -24,6 +24,13 @@ class HomeDrawer extends StatelessWidget {
                       child: Image.asset('assets/images/logo.png'),
                     ),
                   ),
+                  ListTile(
+                    leading: const Icon(Icons.wallet),
+                    title: const Text('Credentials'),
+                    onTap: () {
+                      router.push(const CredentialsRoute());
+                    },
+                  ),
                   ValueListenableBuilder(
                     valueListenable: credentialService.myInfo,
                     builder: (context, value, child) {

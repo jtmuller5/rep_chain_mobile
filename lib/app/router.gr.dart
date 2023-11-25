@@ -31,6 +31,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    CredentialsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const CredentialsView(),
+      );
+    },
     ExistingWalletRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -130,6 +136,20 @@ class CredentialListRouteArgs {
   String toString() {
     return 'CredentialListRouteArgs{key: $key, provider: $provider}';
   }
+}
+
+/// generated route for
+/// [CredentialsView]
+class CredentialsRoute extends PageRouteInfo<void> {
+  const CredentialsRoute({List<PageRouteInfo>? children})
+      : super(
+          CredentialsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CredentialsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
