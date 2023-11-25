@@ -32,7 +32,6 @@ class FeedViewModel extends ViewModel<FeedViewModel> {
     super.initState();
   }
 
-  // Todo filter credentials for specific "message" type
   Future<void> loadMessages() async {
     Feed feed = (router.current.args as FeedRouteArgs).feed;
     TrinsicService trinsic = TrinsicService(null);

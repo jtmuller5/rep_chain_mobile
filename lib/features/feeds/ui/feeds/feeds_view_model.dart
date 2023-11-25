@@ -1,6 +1,9 @@
 import 'package:code_on_the_rocks/code_on_the_rocks.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:rep_chain_mobile/app/services.dart';
+import 'package:rep_chain_mobile/features/credentials/models/credential.dart';
+import 'package:rep_chain_mobile/features/credentials/models/reputation.dart';
 import 'package:trinsic_dart/trinsic.dart';
 
 class FeedsViewModelBuilder extends ViewModelBuilder<FeedsViewModel> {
@@ -27,9 +30,7 @@ class FeedsViewModel extends ViewModel<FeedsViewModel> {
       email: 'jtmuller5+3@gmail.com',
       description: 'Stack Overflow is the largest, most trusted online community for developers to learn, share their programming knowledge, and build their careers.',
       authToken: const String.fromEnvironment('STACK_OVERFLOW_FEED_AUTH_TOKEN'),
-      vcs: [
-        'stackoverflow'
-      ],
+      vcs: ['Stack Overflow'],
     ),
   ];
 
@@ -52,6 +53,35 @@ class FeedsViewModel extends ViewModel<FeedsViewModel> {
       debugPrint('Tokens: ${response.wallet.authTokens}');
     } catch (e) {
       debugPrint('Failed to create feed wallet: $e');
+    }
+  }
+
+  Future<bool> verifyCredential(String platform) async {
+    try {
+      await credentialService.loadCredentials();
+
+      Credential? myCredential = credentialService.credentials.value.firstWhereOrNull(
+        (element) => Reputation.fromJson(element.data?.credentialSubject as Map<String, dynamic>).platform == platform,
+      );
+
+      if (myCredential == null) return false;
+
+      if (platform == 'Stack Overflow') {
+        CreateProofResponse response = await credentialService.trinsic.credential().createProof(
+              CreateProofRequest(itemId: myCredential.id!),
+            );
+
+        VerifyProofResponse proofResponse = await credentialService.trinsic.credential().verifyProof(VerifyProofRequest(
+              proofDocumentJson: response.proofDocumentJson,
+            ));
+
+        return proofResponse.isValid;
+      }
+
+      return false;
+    } catch (e) {
+      debugPrint('verifyCredential error: $e');
+      return false;
     }
   }
 

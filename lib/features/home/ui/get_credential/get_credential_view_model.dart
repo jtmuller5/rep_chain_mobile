@@ -32,15 +32,6 @@ class GetCredentialViewModel extends ViewModel<GetCredentialViewModel> {
     'Dev.to': 'Username',
   };
 
-  final Map<String, String> platformQueryString = {
-    'Stack Overflow': 'stackoverflow',
-    'GitHub': 'github',
-    'Reddit': 'reddit',
-    'LinkedIn': 'linkedin',
-    'Twitter': 'twitter',
-    'Dev.to': 'devto',
-  };
-
   Future<void> getReputationCredential(String platform, String userId) async {
     String urlRaw = 'https://rep-chain.onrender.com/reputation/issue?userId=$userId&platform=$platform&email=${credentialService.myInfo.value?.wallet.externalIdentities.firstOrNull?.id ?? ''}';
 

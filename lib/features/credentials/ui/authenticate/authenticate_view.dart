@@ -4,6 +4,7 @@ import 'package:rep_chain_mobile/app/constants.dart';
 import 'package:rep_chain_mobile/app/router.dart';
 import 'package:rep_chain_mobile/app/services.dart';
 import 'package:rep_chain_mobile/app/text_theme.dart';
+import 'package:rep_chain_mobile/app/theme.dart';
 import 'authenticate_view_model.dart';
 
 @RoutePage()
@@ -66,6 +67,10 @@ class AuthenticateView extends StatelessWidget {
                                   ),
                                 ],
                               ),
+                              gap32,
+                              Text('Powered by', style: context.bodySmall.copyWith(color: context.onBackground.withOpacity(.5)), textAlign: TextAlign.center),
+                              Image.asset('assets/images/trinsic.png',
+                              height: 36,),
                             ],
                           ),
                         ),

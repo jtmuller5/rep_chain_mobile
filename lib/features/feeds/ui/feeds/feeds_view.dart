@@ -5,6 +5,7 @@ import 'package:rep_chain_mobile/app/router.dart';
 import 'package:rep_chain_mobile/app/services.dart';
 import 'package:rep_chain_mobile/app/text_theme.dart';
 import 'package:rep_chain_mobile/app/theme.dart';
+import 'package:rep_chain_mobile/features/credentials/services/credential_service.dart';
 import 'feeds_view_model.dart';
 
 class FeedsView extends StatelessWidget {
@@ -30,11 +31,17 @@ class FeedsView extends StatelessWidget {
                   ],
                   child: InkWell(
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    onTap: () {
-                      if(feed.vcs.isEmpty) {
+                    onTap: () async {
+                      if (feed.vcs.isEmpty) {
                         router.push(FeedRoute(feed: feed));
                       } else {
+                        bool verified = await model.verifyCredential(feed.vcs.first);
 
+                        if (verified) {
+                          router.push(FeedRoute(feed: feed));
+                        } else {
+                          if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('You are not authorized to view this feed')));
+                        }
                       }
                     },
                     child: DecoratedBox(

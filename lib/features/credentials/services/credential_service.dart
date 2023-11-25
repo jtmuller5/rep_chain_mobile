@@ -135,13 +135,13 @@ class CredentialService {
   Future<void> loadCredentials() async {
     try {
       SearchResponse response = await credentialService.trinsic.wallet().searchWallet(SearchRequest(
-        query: "SELECT * FROM c WHERE c.data.type = ['VerifiableCredential', 'Reputation']",
+            query: "SELECT * FROM c WHERE c.data.type = ['VerifiableCredential', 'Reputation']",
             /*query: jsonEncode({
               'type': 'Reputation',
             }),*/
           ));
 
-      log('Items: ' + response.items.toString());
+      // log('Items: ' + response.items.toString());
       List<Credential> creds = [];
       // get Credentials from json
       for (var item in response.items) {
@@ -152,6 +152,7 @@ class CredentialService {
           debugPrint('decode error: $e');
         }
       }
+      debugPrint('creds: ' + creds.toString());
       setCredentials(creds);
     } catch (e) {
       debugPrint('Error: $e');
@@ -165,5 +166,14 @@ class CredentialService {
     'LinkedIn': 'assets/images/linkedin.png',
     'Twitter': 'assets/images/twitter.png',
     'Dev.to': 'assets/images/dev.png',
+  };
+
+  static final Map<String, String> platformQueryString = {
+    'Stack Overflow': 'stackoverflow',
+    'GitHub': 'github',
+    'Reddit': 'reddit',
+    'LinkedIn': 'linkedin',
+    'Twitter': 'twitter',
+    'Dev.to': 'devto',
   };
 }

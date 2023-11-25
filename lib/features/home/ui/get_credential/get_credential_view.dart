@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rep_chain_mobile/app/constants.dart';
 import 'package:rep_chain_mobile/app/services.dart';
 import 'package:rep_chain_mobile/app/text_theme.dart';
+import 'package:rep_chain_mobile/features/credentials/services/credential_service.dart';
 import 'get_credential_view_model.dart';
 
 @RoutePage()
@@ -37,7 +38,7 @@ class GetCredentialView extends StatelessWidget {
                     IconButton.outlined(
                         onPressed: () async {
                           try {
-                            await model.getReputationCredential(model.platformQueryString[platform]!, model.userController.text);
+                            await model.getReputationCredential(CredentialService.platformQueryString[platform]!, model.userController.text);
                             if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Credential issued successfully')));
                             router.pop();
                           } catch (e) {
@@ -48,12 +49,12 @@ class GetCredentialView extends StatelessWidget {
                             valueListenable: model.issuingCredential,
                             builder: (context, issuing, child) {
                               return issuing
-                                  ? SizedBox(
+                                  ? const SizedBox(
                                       height: 24,
                                       width: 24,
                                       child: CircularProgressIndicator(),
                                     )
-                                  : Icon(Icons.check);
+                                  : const Icon(Icons.check);
                             }))
                   ],
                 )
