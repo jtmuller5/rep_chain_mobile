@@ -11,34 +11,71 @@ In the assets folder of your project, fill in the missing environment variables 
 The following variable will come from RevenueCat:
 
 - TRINSIC_AUTH_TOKEN
-- IOS_SDK_KEY
-- AMAZON_SDK_KEY
 
-### App Logo
+# Verifiable Credentials
 
-In the assets folder of your project, replace the app_logo.png file with your own app logo. Then run the following command to update the app icon:
+## Reputation
 
+```agsl
+{
+    "id": "urn:uuid:2212834080ad4addb8b2c8710af21525",
+    "type": "VerifiableCredential",
+    "data": {
+        "@context": [
+            "https://www.w3.org/2018/credentials/v1",
+            "https://w3id.org/bbs/v1",
+            {
+                "@vocab": "https://trinsic.cloud/eloquent-bhaskara-z2gg41u9wxxg/"
+            }
+        ],
+        "type": [
+            "VerifiableCredential",
+            "Reputation"
+        ],
+        "credentialSchema": [
+            {
+                "id": "https://schema.trinsic.cloud/eloquent-bhaskara-z2gg41u9wxxg/reputation",
+                "type": "JsonSchemaValidator2018"
+            }
+        ],
+        "credentialSubject": {
+            "User": "ufohitchhiker",
+            "Value": 19128,
+            "Date": "2023-11-25T16:17:10.564Z",
+            "Platform": "Reddit",
+            "Metric": "Karma",
+            "id": "urn:vc:subject:0"
+        },
+        "id": "urn:vc",
+        "issuanceDate": "2023-11-25T16:17:10Z",
+        "credentialStatus": {
+            "id": "https://eloquent-bhaskara-z2gg41u9wxxg.connect.trinsic.cloud/credential-status/GFqjd4b62eiNWSdjdKc1J#5",
+            "type": "RevocationList2020Status",
+            "revocationListIndex": "5",
+            "revocationListCredential": "https://eloquent-bhaskara-z2gg41u9wxxg.connect.trinsic.cloud/credential-status/GFqjd4b62eiNWSdjdKc1J"
+        },
+        "issuer": "did:web:eloquent-bhaskara-z2gg41u9wxxg.connect.trinsic.cloud:zRu8EGN6oNCwYjHUAmpQLwd",
+        "proof": {
+            "type": "BbsBlsSignature2020",
+            "created": "2023-11-25T16:17:10Z",
+            "proofPurpose": "assertionMethod",
+            "proofValue": "o9jqIJYV6o/W69yexnwC8EJSdXwF8kQwGvuTXnbf7i7bE89jP7Lc4vhDBvnZN0OOMKVg9X44OT7IyqxonIH7xLuNJjBkG7KYma9urLMBCo4x5JoTWPaG1p7URXapIpy1ng+avITVXJin9XQoxPxyNA==",
+            "verificationMethod": "did:web:eloquent-bhaskara-z2gg41u9wxxg.connect.trinsic.cloud:zRu8EGN6oNCwYjHUAmpQLwd#t7bSJv6ljv_o1d8sWeWx4u3Qgnj_Qug-va7LrkTtjfo"
+        }
+    },
+    "walletId": "urn:trinsic:wallets:zRu8EGN6oNCwYjHUAmpQLwd",
+    "isNew": true,
+    "resourceInfo": {
+        "created": 1700929030,
+        "createdIsGuess": false
+    },
+    "_rid": "0E1sAPaF7cIb0AYAAAAAAA==",
+    "_self": "dbs/0E1sAA==/colls/0E1sAPaF7cI=/docs/0E1sAPaF7cIb0AYAAAAAAA==/",
+    "_etag": "\"bb03fa82-0000-0100-0000-65621e060000\"",
+    "_attachments": "attachments/",
+    "_ts": 1700929030
+}
 ```
-flutter pub run flutter_launcher_icons
-```
-
-## RevenueCat
-Use structured [product IDs](https://www.revenuecat.com/docs/android-products#tips-for-creating-robust-product-ids):
-
-**Google Play**
-Product ID: app_entitlement_version
-
-Base Plan: duration-renewaltype (eg. monthly-autorenewing)
-
-**RC Steps:**
-1. Locate API keys and add to config.json
-2. Create Entitlements
-3. Add/Import Products
-4. Associate Entitlements with Products
-5. Create Offering
-6. Add Packages to Offering
-7. Add Products to Packages
-
 
 # Deployment
 

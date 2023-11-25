@@ -10,10 +10,17 @@ class Credential {
 
   CredentialData? data;
 
+  String? walletId;
+
+  bool? isNew;
+
+
   Credential({
     this.id,
     this.type,
     this.data,
+    this.walletId,
+    this.isNew,
   });
 
   factory Credential.fromJson(Map<String, dynamic> json) => _$CredentialFromJson(json);

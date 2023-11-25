@@ -32,6 +32,28 @@ class FeedsViewModel extends ViewModel<FeedsViewModel> {
       authToken: const String.fromEnvironment('STACK_OVERFLOW_FEED_AUTH_TOKEN'),
       vcs: ['Stack Overflow'],
     ),
+    Feed(
+      name: 'GitHub',
+      email: 'jtmuller5+4@gmail.com',
+      description:
+          'GitHub is where over 65 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code like a pro, track bugs and features, power your CI/CD and DevOps workflows, and secure code before you commit it.',
+      authToken: const String.fromEnvironment('GITHUB_FEED_AUTH_TOKEN'),
+      vcs: ['GitHub'],
+    ),
+    Feed(
+      name: 'Reddit',
+      email: 'jtmuller5+5@gmail.com',
+      description: 'Reddit is a network of communities based on people\'s interests. Find communities you\'re interested in, and become part of an online community!',
+      authToken: const String.fromEnvironment('REDDIT_FEED_AUTH_TOKEN'),
+      vcs: ['Reddit'],
+    ),
+    Feed(
+      name: 'Dev.to',
+      email: 'jtmuller5+6@gmail.com',
+      description: 'DEV Community is a community of 666,000 amazing developers',
+      authToken: const String.fromEnvironment('DEV_TO_FEED_AUTH_TOKEN'),
+      vcs: ['Dev.to'],
+    ),
   ];
 
   Future<void> createFeedWallet() async {
@@ -40,11 +62,11 @@ class FeedsViewModel extends ViewModel<FeedsViewModel> {
       CreateWalletResponse response = await TrinsicService(null).wallet().createWallet(
             CreateWalletRequest(
               identity: CreateWalletRequest_ExternalIdentity(
-                identity: 'jtmuller5+2@gmail.com',
+                identity: 'jtmuller5+6@gmail.com',
                 provider: IdentityProvider.Email,
               ),
               ecosystemId: ecosystemId,
-              description: 'General Feed Wallet',
+              description: 'Dev.to Feed Wallet',
             ),
           );
 

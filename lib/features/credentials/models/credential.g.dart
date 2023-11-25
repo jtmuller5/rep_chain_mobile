@@ -12,6 +12,8 @@ Credential _$CredentialFromJson(Map<String, dynamic> json) => Credential(
       data: json['data'] == null
           ? null
           : CredentialData.fromJson(json['data'] as Map<String, dynamic>),
+      walletId: json['walletId'] as String?,
+      isNew: json['isNew'] as bool?,
     );
 
 Map<String, dynamic> _$CredentialToJson(Credential instance) =>
@@ -19,6 +21,8 @@ Map<String, dynamic> _$CredentialToJson(Credential instance) =>
       'id': instance.id,
       'type': instance.type,
       'data': instance.data?.toJson(),
+      'walletId': instance.walletId,
+      'isNew': instance.isNew,
     };
 
 CredentialData _$CredentialDataFromJson(Map<String, dynamic> json) =>
