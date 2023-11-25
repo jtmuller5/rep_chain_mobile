@@ -9,40 +9,64 @@ import 'package:trinsic_dart/trinsic_dart.dart';
 class CredentialService {
   var trinsic = TrinsicService(null);
 
+  ValueNotifier<GetMyInfoResponse?> myInfo = ValueNotifier(null);
+
+  void setMyInfo(GetMyInfoResponse? val) {
+    myInfo.value = val;
+  }
+
   ValueNotifier<bool> authenticated = ValueNotifier(false);
 
-  void setAuthenticated(bool val){
+  void setAuthenticated(bool val) {
     authenticated.value = val;
   }
 
-  void authenticateWallet(String authToken){
+  void authenticateWallet(String authToken) {
     saveAuthToken(authToken);
     setAuthenticated(true);
   }
 
-  void saveAuthToken(String authToken){
+  void saveAuthToken(String authToken) {
     sharedPrefs.setString('authToken', authToken);
     trinsic.serviceOptions.authToken = authToken;
     setAuthenticated(true);
   }
 
-  void clearAuthToken(){
-    sharedPrefs.remove('authToken');
+  Future<void> clearAuthToken() async {
+    await sharedPrefs.remove('authToken');
     trinsic.serviceOptions.authToken = '';
     setAuthenticated(false);
   }
 
+  // response: wallet: {
+  //   name: urn:trinsic:wallets:z3J7d3DzMesstaCpEya6Qa5
+  //   email: jtmuller5+1@gmail.com
+  //   walletId: urn:trinsic:wallets:z3J7d3DzMesstaCpEya6Qa5
+  //   publicDid: did:web:eloquent-bhaskara-z2gg41u9wxxg.connect.trinsic.cloud:z3J7d3DzMesstaCpEya6Qa5
+  //   authTokens: {
+  //     id: ae5dca89-f677-4be3-8daf-2d610d0d1ebd
+  //     description: Initial auth token
+  //     dateCreated: 2023-11-24T19:44:35.7237790Z
+  //   }
+  //   externalIdentityIds: jtmuller5+1@gmail.com
+  //   ecosystemId: urn:trinsic:ecosystems:eloquent-bhaskara-z2gg41u9wxxg
+  //   externalIdentities: {
+  //     provider: Email
+  //     id: jtmuller5+1@gmail.com
+  //   }
+  // }
   Future<GetMyInfoResponse?> getMyWallet() async {
     trinsic.serviceOptions.authToken = sharedPrefs.getString('authToken') ?? '';
     try {
       GetMyInfoResponse response = await trinsic.wallet().getMyInfo();
 
+      setMyInfo(response);
       debugPrint('response: ' + response.toString());
-      if(response.hasWallet()){
+      if (response.hasWallet()) {
         setAuthenticated(true);
       }
       return response;
-    } catch(e) {
+    } catch (e) {
       debugPrint('getMyWallet error: $e');
       return null;
     }
@@ -62,6 +86,18 @@ class CredentialService {
       debugPrint('response: ' + response.toString());
     } catch (e) {
       debugPrint('attachWallet error: $e');
+    }
+  }
+
+  Future<void> deleteWallet() async {
+    try {
+      await trinsic.wallet().deleteWallet(DeleteWalletRequest(
+            email: myInfo.value?.wallet.externalIdentities.firstOrNull?.id ?? '',
+          ));
+      await clearAuthToken();
+    } catch (e) {
+      debugPrint('deleteWallet error: $e');
+      rethrow;
     }
   }
 

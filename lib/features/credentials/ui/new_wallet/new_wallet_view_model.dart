@@ -36,7 +36,7 @@ class NewWalletViewModel extends ViewModel<NewWalletViewModel> {
       );
 
       credentialService.saveAuthToken(newWallet.authToken);
-
+      credentialService.getMyWallet();
     } catch (e) {
       debugPrint('createWallet error: $e');
     } finally {

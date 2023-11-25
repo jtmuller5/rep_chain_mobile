@@ -25,9 +25,9 @@ class AuthenticateViewModel extends ViewModel<AuthenticateViewModel> {
     credentialService.getMyWallet().then((value) {
       if (credentialService.authenticated.value) {
         router.replace(const HomeRoute());
+      } else {
+        loading.value = false;
       }
-
-      loading.value = false;
     });
     super.initState();
   }

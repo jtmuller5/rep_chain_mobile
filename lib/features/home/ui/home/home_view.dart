@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:rep_chain_mobile/app/router.dart';
 import 'package:rep_chain_mobile/app/services.dart';
 import 'package:rep_chain_mobile/features/feeds/ui/feeds/feeds_view.dart';
+import 'package:rep_chain_mobile/features/home/ui/badge_list/badge_list_view.dart';
 import 'package:rep_chain_mobile/features/home/ui/home/widgets/drawer.dart';
-import 'package:rep_chain_mobile/features/home/ui/home/widgets/home.dart';
 
 @RoutePage()
 class HomeView extends StatefulWidget {
@@ -47,7 +47,7 @@ class _HomeViewState extends State<HomeView> {
       body: IndexedStack(
         index: index,
         children: const [
-          Home(),
+          BadgeListView(),
           FeedsView(),
         ],
       ),

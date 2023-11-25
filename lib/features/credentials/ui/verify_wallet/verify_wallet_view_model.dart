@@ -29,6 +29,7 @@ class VerifyWalletViewModel extends ViewModel<VerifyWalletViewModel> {
 
       debugPrint('response: ' + response.toString());
       credentialService.authenticateWallet(response.authToken);
+      credentialService.getMyWallet();
     } catch (e) {
       debugPrint('error: ' + e.toString());
       rethrow;

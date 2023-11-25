@@ -21,6 +21,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AuthenticateView(),
       );
     },
+    CredentialListRoute.name: (routeData) {
+      final args = routeData.argsAs<CredentialListRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: CredentialListView(
+          key: args.key,
+          provider: args.provider,
+        ),
+      );
+    },
     ExistingWalletRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -82,6 +92,44 @@ class AuthenticateRoute extends PageRouteInfo<void> {
   static const String name = 'AuthenticateRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CredentialListView]
+class CredentialListRoute extends PageRouteInfo<CredentialListRouteArgs> {
+  CredentialListRoute({
+    Key? key,
+    required String provider,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CredentialListRoute.name,
+          args: CredentialListRouteArgs(
+            key: key,
+            provider: provider,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CredentialListRoute';
+
+  static const PageInfo<CredentialListRouteArgs> page =
+      PageInfo<CredentialListRouteArgs>(name);
+}
+
+class CredentialListRouteArgs {
+  const CredentialListRouteArgs({
+    this.key,
+    required this.provider,
+  });
+
+  final Key? key;
+
+  final String provider;
+
+  @override
+  String toString() {
+    return 'CredentialListRouteArgs{key: $key, provider: $provider}';
+  }
 }
 
 /// generated route for
@@ -186,7 +234,8 @@ class VerifyWalletRoute extends PageRouteInfo<VerifyWalletRouteArgs> {
 
   static const String name = 'VerifyWalletRoute';
 
-  static const PageInfo<VerifyWalletRouteArgs> page = PageInfo<VerifyWalletRouteArgs>(name);
+  static const PageInfo<VerifyWalletRouteArgs> page =
+      PageInfo<VerifyWalletRouteArgs>(name);
 }
 
 class VerifyWalletRouteArgs {
