@@ -131,10 +131,15 @@ class CredentialService {
     }
   }
 
+  /// Load credentials that have a type == Reputation
   Future<void> loadCredentials() async {
-
     try {
-      SearchResponse response = await credentialService.trinsic.wallet().searchWallet(SearchRequest());
+      SearchResponse response = await credentialService.trinsic.wallet().searchWallet(SearchRequest(
+        query: "SELECT * FROM c WHERE c.data.type = ['VerifiableCredential', 'Reputation']",
+            /*query: jsonEncode({
+              'type': 'Reputation',
+            }),*/
+          ));
 
       log('Items: ' + response.items.toString());
       List<Credential> creds = [];
@@ -153,7 +158,7 @@ class CredentialService {
     }
   }
 
-  static Map<String,String> platformImages = {
+  static Map<String, String> platformImages = {
     'Stack Overflow': 'assets/images/stack_overflow.png',
     'GitHub': 'assets/images/github.png',
     'Reddit': 'assets/images/reddit.png',

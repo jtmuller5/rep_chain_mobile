@@ -17,15 +17,19 @@ class FeedsViewModel extends ViewModel<FeedsViewModel> {
   List<Feed> feeds = [
     Feed(
       name: 'General',
+      email: 'jtmuller5+2@gmail.com',
       description: 'Chat with the Rep Chain community',
-      authToken: String.fromEnvironment('GENERAL_FEED_AUTH_TOKEN'),
+      authToken: const String.fromEnvironment('GENERAL_FEED_AUTH_TOKEN'),
       vcs: [],
     ),
     Feed(
       name: 'Stack Overflow',
+      email: 'jtmuller5+3@gmail.com',
       description: 'Stack Overflow is the largest, most trusted online community for developers to learn, share their programming knowledge, and build their careers.',
-      authToken: String.fromEnvironment('STACK_OVERFLOW_FEED_AUTH_TOKEN'),
-      vcs: [],
+      authToken: const String.fromEnvironment('STACK_OVERFLOW_FEED_AUTH_TOKEN'),
+      vcs: [
+        'stackoverflow'
+      ],
     ),
   ];
 
@@ -57,6 +61,8 @@ class FeedsViewModel extends ViewModel<FeedsViewModel> {
 class Feed {
   final String name;
 
+  final String email;
+
   final String description;
 
   final String authToken;
@@ -65,6 +71,7 @@ class Feed {
 
   Feed({
     required this.name,
+    required this.email,
     required this.description,
     required this.authToken,
     required this.vcs,

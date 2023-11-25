@@ -20,9 +20,9 @@ class FeedViewModelBuilder extends ViewModelBuilder<FeedViewModel> {
 }
 
 class FeedViewModel extends ViewModel<FeedViewModel> {
-  ValueNotifier<List<String>> messages = ValueNotifier([]);
+  ValueNotifier<List<Credential>> messages = ValueNotifier([]);
 
-  void setMessages(List<String> val) {
+  void setMessages(List<Credential> val) {
     messages.value = val;
   }
 
@@ -32,22 +32,55 @@ class FeedViewModel extends ViewModel<FeedViewModel> {
     super.initState();
   }
 
+  // Todo filter credentials for specific "message" type
   Future<void> loadMessages() async {
     Feed feed = (router.current.args as FeedRouteArgs).feed;
     TrinsicService trinsic = TrinsicService(null);
     trinsic.serviceOptions.authToken = feed.authToken;
 
-    SearchResponse response = await trinsic.wallet().searchWallet(SearchRequest());
+    SearchResponse response = await trinsic.wallet().searchWallet(SearchRequest(
+      query: "SELECT * FROM c WHERE c.data.type = ['VerifiableCredential', 'Message'] ORDER BY c.data.issuanceDate DESC",
+    ));
 
-    List<String> messages = [];
+    List<Credential> messages = [];
 
     for (var item in response.items) {
       try {
         var cred = Credential.fromJson(jsonDecode(item));
-        messages.add((cred.data?.credentialSubject as Message).content ?? '');
+        messages.add(cred);
       } catch (e) {
         debugPrint('decode error: $e');
       }
+    }
+    setMessages(messages);
+  }
+
+  Future<void> sendMessage() async {
+    try {
+      Feed feed = (router.current.args as FeedRouteArgs).feed;
+      TrinsicService trinsic = TrinsicService(null);
+      trinsic.serviceOptions.authToken = feed.authToken;
+
+      debugPrint(' trinsic.serviceOptions.authToken: ' +  trinsic.serviceOptions.authToken.toString());
+      IssueFromTemplateResponse response = await trinsic.credential().issueFromTemplate(
+        IssueFromTemplateRequest(
+          includeGovernance: false,
+          templateId: 'https://schema.trinsic.cloud/eloquent-bhaskara-z2gg41u9wxxg/message',
+          valuesJson: jsonEncode({
+            'content': 'Hello World',
+          }),
+        ),
+      );
+
+      debugPrint('response: ' + response.toString());
+
+      await trinsic.credential().send(SendRequest(
+        email: feed.email,
+        sendNotification: false,
+        documentJson: response.documentJson,
+      ));
+    } catch (e) {
+      debugPrint('sendMessage error: $e');
     }
   }
 

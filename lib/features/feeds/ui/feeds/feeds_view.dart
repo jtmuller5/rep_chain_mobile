@@ -13,27 +13,31 @@ class FeedsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FeedsViewModelBuilder(
-        builder: (context, model) {
-          return Scaffold(
-
+      builder: (context, model) {
+        return Scaffold(
             body: ListView.separated(
               padding: const EdgeInsets.all(16.0),
               itemCount: model.feeds.length,
               separatorBuilder: (context, index) => gap8,
               itemBuilder: (context, index) {
-
                 Feed feed = model.feeds[index];
                 return Animate(
-                  effects:const [SlideEffect(
-                    begin: Offset(0, 0.2),
-                    end: Offset(0, 0),
-                  )],
-                  child: InkWell(borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  effects: const [
+                    SlideEffect(
+                      begin: Offset(0, 0.2),
+                      end: Offset(0, 0),
+                    )
+                  ],
+                  child: InkWell(
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
                     onTap: () {
-                      router.push(FeedRoute(feed: feed));
+                      if(feed.vcs.isEmpty) {
+                        router.push(FeedRoute(feed: feed));
+                      } else {
+
+                      }
                     },
                     child: DecoratedBox(
-
                       decoration: BoxDecoration(
                           color: context.background,
                           borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -49,18 +53,23 @@ class FeedsView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ListTile(
-
                             title: Text(feed.name),
                             subtitle: Text(feed.description),
-
                           ),
-                          if(feed.vcs.isEmpty)
+                          if (feed.vcs.isEmpty)
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 16.0),
                               child: Text("Open", style: context.bodyMedium.copyWith(color: Colors.green)),
+                            )
+                          else
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Icon(
+                                Icons.lock,
+                                color: context.onBackground.withOpacity(.5),
+                              ),
                             ),
                           gap8,
-
                         ],
                       ),
                     ),
@@ -73,10 +82,8 @@ class FeedsView extends StatelessWidget {
                 model.createFeedWallet();
               },
               child: const Icon(Icons.add),
-            )
-          );
-        },
-      );
+            ));
+      },
+    );
   }
 }
-      

@@ -15,7 +15,7 @@ class CredentialCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Reputation reputation = credential.data?.credentialSubject as Reputation;
+    Reputation reputation = Reputation.fromJson(credential.data?.credentialSubject as Map<String,dynamic>);
 
     return Theme(
       data: Theme.of(context).copyWith(
@@ -24,7 +24,7 @@ class CredentialCard extends StatelessWidget {
         highlightColor: Colors.transparent,
       ),
       child: DecoratedBox(
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [
+        decoration: BoxDecoration(color: context.background, borderRadius: BorderRadius.circular(8), boxShadow: [
           BoxShadow(
             color: context.onBackground.withOpacity(.1),
             blurRadius: 8,

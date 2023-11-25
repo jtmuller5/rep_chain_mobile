@@ -40,7 +40,7 @@ class BadgeListView extends StatelessWidget {
                         },
                         child: DecoratedBox(
                           decoration: BoxDecoration(
-                              color: context.background,
+                              color: context.tertiaryContainer,
                               borderRadius: const BorderRadius.all(Radius.circular(8)),
                               border: Border.all(color: context.onBackground.withOpacity(.1)),
                               boxShadow: [
