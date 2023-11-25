@@ -28,7 +28,7 @@ class FeedsViewModel extends ViewModel<FeedsViewModel> {
     Feed(
       name: 'Stack Overflow',
       email: 'jtmuller5+3@gmail.com',
-      description: 'Stack Overflow is the largest, most trusted online community for developers to learn, share their programming knowledge, and build their careers.',
+      description: 'Chat with other developers who have verified their Stack Overflow reputation',
       authToken: const String.fromEnvironment('STACK_OVERFLOW_FEED_AUTH_TOKEN'),
       vcs: ['Stack Overflow'],
     ),
@@ -36,21 +36,21 @@ class FeedsViewModel extends ViewModel<FeedsViewModel> {
       name: 'GitHub',
       email: 'jtmuller5+4@gmail.com',
       description:
-          'GitHub is where over 65 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code like a pro, track bugs and features, power your CI/CD and DevOps workflows, and secure code before you commit it.',
+          'Message GitHub users who have verified their GitHub contributions',
       authToken: const String.fromEnvironment('GITHUB_FEED_AUTH_TOKEN'),
       vcs: ['GitHub'],
     ),
     Feed(
       name: 'Reddit',
       email: 'jtmuller5+5@gmail.com',
-      description: 'Reddit is a network of communities based on people\'s interests. Find communities you\'re interested in, and become part of an online community!',
+      description: 'Chat with other developers who have verified their Reddit karma',
       authToken: const String.fromEnvironment('REDDIT_FEED_AUTH_TOKEN'),
       vcs: ['Reddit'],
     ),
     Feed(
       name: 'Dev.to',
       email: 'jtmuller5+6@gmail.com',
-      description: 'DEV Community is a community of 666,000 amazing developers',
+      description: 'A Community for bloggers who have verified their Dev.to activity',
       authToken: const String.fromEnvironment('DEV_TO_FEED_AUTH_TOKEN'),
       vcs: ['Dev.to'],
     ),
@@ -87,20 +87,14 @@ class FeedsViewModel extends ViewModel<FeedsViewModel> {
       );
 
       if (myCredential == null) return false;
+      CreateProofResponse response = await credentialService.trinsic.credential().createProof(CreateProofRequest(itemId: myCredential.id!));
 
-      if (platform == 'Stack Overflow') {
-        CreateProofResponse response = await credentialService.trinsic.credential().createProof(
-              CreateProofRequest(itemId: myCredential.id!),
-            );
+      VerifyProofResponse proofResponse = await credentialService.trinsic.credential().verifyProof(VerifyProofRequest(
+            proofDocumentJson: response.proofDocumentJson,
+          ));
 
-        VerifyProofResponse proofResponse = await credentialService.trinsic.credential().verifyProof(VerifyProofRequest(
-              proofDocumentJson: response.proofDocumentJson,
-            ));
+      return proofResponse.isValid;
 
-        return proofResponse.isValid;
-      }
-
-      return false;
     } catch (e) {
       debugPrint('verifyCredential error: $e');
       return false;

@@ -84,12 +84,12 @@ class FeedsView extends StatelessWidget {
                 );
               },
             ),
-            floatingActionButton: FloatingActionButton(
+            /*floatingActionButton: FloatingActionButton(
               onPressed: () {
                 model.createFeedWallet();
               },
               child: const Icon(Icons.add),
-            ));
+            )*/);
       },
     );
   }

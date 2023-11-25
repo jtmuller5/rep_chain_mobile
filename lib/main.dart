@@ -42,6 +42,7 @@ class MainApp extends StatelessWidget {
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: mode,
+            debugShowCheckedModeBanner: false,
             routerConfig: router.config(
               navigatorObservers: () => [
                 SentryNavigatorObserver(),
