@@ -117,9 +117,12 @@ class CredentialService {
     await trinsic.wallet().getItem(GetItemRequest(itemId: "default"));
   }
 
-  Future<void> deleteCredential() async {
+  Future<void> deleteCredential(String itemId) async {
     try {
-      await trinsic.wallet().deleteItem(DeleteItemRequest(itemId: "urn:uuid:58bce5790f5e44ee92c48902ca8c5c53"));
+      await trinsic.wallet().deleteItem(DeleteItemRequest(itemId: itemId));
+      List<Credential> updatedCredentials = credentials.value;
+      updatedCredentials.removeWhere((element) => element.id == itemId);
+      setCredentials(updatedCredentials);
       debugPrint('deleteCredential success');
     } catch (e) {
       debugPrint('deleteCredential error: $e');
@@ -148,4 +151,13 @@ class CredentialService {
       debugPrint('Error: $e');
     }
   }
+
+  static Map<String,String> platformImages = {
+    'Stack Overflow': 'assets/images/stack_overflow.png',
+    'GitHub': 'assets/images/github.png',
+    'Reddit': 'assets/images/reddit.png',
+    'LinkedIn': 'assets/images/linkedin.png',
+    'Twitter': 'assets/images/twitter.png',
+    'Dev.to': 'assets/images/devto.png',
+  };
 }

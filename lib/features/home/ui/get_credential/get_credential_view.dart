@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:rep_chain_mobile/app/constants.dart';
+import 'package:rep_chain_mobile/app/services.dart';
 import 'package:rep_chain_mobile/app/text_theme.dart';
 import 'get_credential_view_model.dart';
 
@@ -35,14 +36,25 @@ class GetCredentialView extends StatelessWidget {
                   children: [
                     IconButton.outlined(
                         onPressed: () async {
-                          try{
+                          try {
                             await model.getReputationCredential(model.platformQueryString[platform]!, model.userController.text);
-                            if(context.mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Credential issued successfully')));
+                            if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Credential issued successfully')));
+                            router.pop();
                           } catch (e) {
-                            if(context.mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                            if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
                           }
                         },
-                        icon: const Icon(Icons.check))
+                        icon: ValueListenableBuilder(
+                            valueListenable: model.issuingCredential,
+                            builder: (context, issuing, child) {
+                              return issuing
+                                  ? SizedBox(
+                                      height: 24,
+                                      width: 24,
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : Icon(Icons.check);
+                            }))
                   ],
                 )
               ],

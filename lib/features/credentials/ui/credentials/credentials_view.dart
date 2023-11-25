@@ -2,8 +2,8 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:rep_chain_mobile/app/constants.dart';
 import 'package:rep_chain_mobile/app/services.dart';
-import 'package:rep_chain_mobile/app/text_theme.dart';
 import 'package:rep_chain_mobile/features/credentials/models/credential.dart';
+import 'package:rep_chain_mobile/features/credentials/ui/credentials/widgets/credential_card.dart';
 import 'credentials_view_model.dart';
 
 @RoutePage()
@@ -32,27 +32,19 @@ class CredentialsView extends StatelessWidget {
                     return const Center(child: CircularProgressIndicator());
                   }
 
-                  return ListView.separated(
-                    itemCount: credentialService.credentials.value.length,
-                    itemBuilder: (context, index) {
-                      Credential credential = credentialService.credentials.value[index];
-                      return DecoratedBox(
-                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 8,
-                            offset: Offset(0, 4),
-                          )
-                        ]),
-                        child: ListTile(
-                          title: Text(credential.data!.type!.firstWhere((element) => element != 'VerifiableCredential'), style: context.titleMedium),
-                          onTap: () {},
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) => gap8,
-                    padding: const EdgeInsets.all(16.0),
-                  );
+                  return ValueListenableBuilder(
+                      valueListenable: credentialService.credentials,
+                      builder: (context, credentials, child) {
+                        return ListView.separated(
+                          itemCount: credentials.length,
+                          itemBuilder: (context, index) {
+                            Credential credential = credentials[index];
+                            return CredentialCard(credential: credential);
+                          },
+                          separatorBuilder: (context, index) => gap8,
+                          padding: const EdgeInsets.all(16.0),
+                        );
+                      });
                 }));
       },
     );

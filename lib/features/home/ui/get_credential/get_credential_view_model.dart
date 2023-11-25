@@ -17,6 +17,12 @@ class GetCredentialViewModelBuilder extends ViewModelBuilder<GetCredentialViewMo
 class GetCredentialViewModel extends ViewModel<GetCredentialViewModel> {
   TextEditingController userController = TextEditingController();
 
+  ValueNotifier<bool> issuingCredential = ValueNotifier(false);
+
+  void setIssuingCredential(bool val){
+    issuingCredential.value = val;
+  }
+
   final Map<String, String> platformToUserType = {
     'Stack Overflow': 'User ID',
     'GitHub': 'Username',
@@ -35,12 +41,13 @@ class GetCredentialViewModel extends ViewModel<GetCredentialViewModel> {
     'Dev.to': 'devto',
   };
 
-  Future<void> getReputationCredential(String platfrom, String userId) async {
-    String urlRaw = 'https://rep-chain.onrender.com/reputation/issue?userId=$userId&platform=$platfrom&email=${credentialService.myInfo.value?.wallet.externalIdentities.firstOrNull?.id ?? ''}';
+  Future<void> getReputationCredential(String platform, String userId) async {
+    String urlRaw = 'https://rep-chain.onrender.com/reputation/issue?userId=$userId&platform=$platform&email=${credentialService.myInfo.value?.wallet.externalIdentities.firstOrNull?.id ?? ''}';
 
     debugPrint('urlRaw: ' + urlRaw.toString());
     final url = Uri.parse(urlRaw);
 
+    setIssuingCredential(true);
     try {
       final response = await http.get(url);
 
@@ -56,6 +63,8 @@ class GetCredentialViewModel extends ViewModel<GetCredentialViewModel> {
       // Handle any errors that occur during the request
       debugPrint('Error fetching reputation credential: $e');
       rethrow;
+    } finally {
+      setIssuingCredential(false);
     }
   }
 
