@@ -15,71 +15,68 @@ class BadgeListView extends StatelessWidget {
       builder: (context, model) {
         return Scaffold(
             body: ValueListenableBuilder(
-              valueListenable: credentialService.credentials,
-              builder: (context, credentials, child) {
-                return CustomScrollView(
-          slivers: [
-                SliverGrid.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 0,
-                      crossAxisSpacing: 0,
-                    ),
-                    itemBuilder: (context, index) {
-
-
-                      String provider = model.providers.keys.toList()[index];
-                      bool hasCredential = credentials
-                          .any((element) => (Reputation.fromJson(element.data!.credentialSubject as Map<String, dynamic>).platform == provider));
-
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Animate(
-                          effects: [
-                            SlideEffect(
-                              begin: const Offset(0, 0.2),
-                              end: const Offset(0, 0),
-                              delay: Duration(milliseconds: 100 * index),
-                            ),
-                            const FadeEffect(),
-                          ],
-                          child: InkWell(
-                            borderRadius: const BorderRadius.all(Radius.circular(8)),
-                            onTap: () {
-                              if(!hasCredential) {
-                                router.push(GetCredentialRoute(platform: provider));
-                              } else {
-                                if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('You already have this credential')));
-                              }
-                            },
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                  color:  context.background,
-                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                  border: Border.all(color:hasCredential? Colors.green: context.onBackground.withOpacity(.1),
-                                   width: hasCredential? 4: 1),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: context.onBackground.withOpacity(.1),
-                                      blurRadius: 8,
-                                      offset: const Offset(0, 4),
-                                    ),
-                                  ]),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Image.asset(model.providers.values.toList()[index],
-                                color: Theme.of(context).brightness == Brightness.light ? null: Colors.white,),
-                              ),
-                            ),
+                valueListenable: credentialService.credentials,
+                builder: (context, credentials, child) {
+                  return CustomScrollView(
+                    slivers: [
+                      SliverGrid.builder(
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 0,
+                            crossAxisSpacing: 0,
                           ),
-                        ),
-                      );
-                    },
-                    itemCount: model.providers.length)
-          ],
-        );
-              }
-            ));
+                          itemBuilder: (context, index) {
+                            String provider = model.providers.keys.toList()[index];
+                            bool hasCredential = credentials.any((element) => (Reputation.fromJson(element.data!.credentialSubject as Map<String, dynamic>).platform == provider));
+
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Animate(
+                                effects: [
+                                  SlideEffect(
+                                    begin: const Offset(0, 0.2),
+                                    end: const Offset(0, 0),
+                                    delay: Duration(milliseconds: 100 * index),
+                                  ),
+                                  const FadeEffect(),
+                                ],
+                                child: InkWell(
+                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                  onTap: () {
+                                    if (!hasCredential) {
+                                      router.push(GetCredentialRoute(platform: provider));
+                                    } else {
+                                      if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('You already have this credential')));
+                                    }
+                                  },
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                        color: context.background,
+                                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                        border: Border.all(color: hasCredential ? Colors.green : context.onBackground.withOpacity(.1), width: hasCredential ? 4 : 1),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: context.onBackground.withOpacity(.1),
+                                            blurRadius: 8,
+                                            offset: const Offset(0, 4),
+                                          ),
+                                        ]),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Image.asset(
+                                        model.providers.values.toList()[index],
+                                        color: Theme.of(context).brightness == Brightness.light ? null : Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          itemCount: model.providers.length)
+                    ],
+                  );
+                }));
       },
     );
   }

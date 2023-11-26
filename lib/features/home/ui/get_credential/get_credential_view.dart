@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:rep_chain_mobile/app/constants.dart';
+import 'package:rep_chain_mobile/app/router.dart';
 import 'package:rep_chain_mobile/app/services.dart';
 import 'package:rep_chain_mobile/app/text_theme.dart';
 import 'package:rep_chain_mobile/features/credentials/services/credential_service.dart';
@@ -39,8 +40,9 @@ class GetCredentialView extends StatelessWidget {
                         onPressed: () async {
                           try {
                             await model.getReputationCredential(CredentialService.platformQueryString[platform]!, model.userController.text);
+                            await credentialService.loadCredentials();
                             if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Credential issued successfully')));
-                            router.pop();
+                            router.replace(const CredentialsRoute());
                           } catch (e) {
                             if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
                           }

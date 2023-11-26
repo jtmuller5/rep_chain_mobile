@@ -17,6 +17,12 @@ class FeedsViewModelBuilder extends ViewModelBuilder<FeedsViewModel> {
 }
 
 class FeedsViewModel extends ViewModel<FeedsViewModel> {
+
+  ValueNotifier<bool> unlocking = ValueNotifier(false);
+
+  void setUnlocking(bool val){
+    unlocking.value = val;
+  }
   List<Feed> feeds = [
     Feed(
       name: 'General',
@@ -79,6 +85,7 @@ class FeedsViewModel extends ViewModel<FeedsViewModel> {
   }
 
   Future<bool> verifyCredential(String platform) async {
+    setUnlocking(true);
     try {
       await credentialService.loadCredentials();
 
@@ -98,6 +105,8 @@ class FeedsViewModel extends ViewModel<FeedsViewModel> {
     } catch (e) {
       debugPrint('verifyCredential error: $e');
       return false;
+    } finally{
+      setUnlocking(false);
     }
   }
 

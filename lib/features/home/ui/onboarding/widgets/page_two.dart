@@ -16,14 +16,14 @@ class PageTwo extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Find the flutter_fast_cli on pub.dev',
+              'Rep Chain let\'s you bring your internet reputation to a decentralized and anonymous network.',
               textAlign: TextAlign.center,
               style: context.headlineSmall,
             ).animate(effects: [
               const FadeEffect(delay: Duration(milliseconds: 300))
             ]),
             gap16,
-            const Text('💙')
+            const Text('⛓️')
           ],
         ),
       ),

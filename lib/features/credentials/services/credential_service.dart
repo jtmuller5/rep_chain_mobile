@@ -122,7 +122,7 @@ class CredentialService {
     try {
       await trinsic.wallet().deleteItem(DeleteItemRequest(itemId: itemId));
       List<Credential> updatedCredentials = credentials.value;
-      updatedCredentials.removeWhere((element) => element.id == itemId);
+      updatedCredentials = updatedCredentials.where((element) => element.id != itemId).toList();
       setCredentials(updatedCredentials);
       debugPrint('deleteCredential success');
     } catch (e) {

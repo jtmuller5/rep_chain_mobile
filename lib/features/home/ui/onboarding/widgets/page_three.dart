@@ -17,26 +17,15 @@ class PageThree extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            RichText(
+            Text(
+              'Our goal is to be the leading reputation issuer for web3 .',
               textAlign: TextAlign.center,
-              text: TextSpan(style: context.headlineSmall, children: [
-                const TextSpan(text: 'And follow us on Twitter '),
-                TextSpan(
-                  text: '@CodeOnTheRocks_',
-                  style: context.headlineSmall
-                      .copyWith(color: Colors.lightBlueAccent),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      launchUrl(
-                          Uri.parse('https://twitter.com/CodeOnTheRocks_'));
-                    },
-                ),
-              ]),
+              style: context.headlineSmall,
             ).animate(effects: [
               const FadeEffect(delay: Duration(milliseconds: 300))
             ]),
             gap16,
-            const Text('🍹')
+            const Text('🏆')
           ],
         ),
       ),
