@@ -12,6 +12,7 @@ class HomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      surfaceTintColor: Colors.transparent,
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,6 +33,7 @@ class HomeDrawer extends StatelessWidget {
                       router.push(const CredentialsRoute());
                     },
                   ),
+                  const Divider(),
                   ValueListenableBuilder(
                     valueListenable: credentialService.myInfo,
                     builder: (context, value, child) {

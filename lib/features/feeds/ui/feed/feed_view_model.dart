@@ -20,13 +20,16 @@ class FeedViewModelBuilder extends ViewModelBuilder<FeedViewModel> {
 }
 
 class FeedViewModel extends ViewModel<FeedViewModel> {
-
   TextEditingController messageController = TextEditingController();
 
   ValueNotifier<List<Credential>> messages = ValueNotifier([]);
 
   void setMessages(List<Credential> val) {
     messages.value = val;
+  }
+
+  void addMessage(Credential val) {
+    messages.value = [val, ...messages.value];
   }
 
   @override
@@ -41,8 +44,8 @@ class FeedViewModel extends ViewModel<FeedViewModel> {
     trinsic.serviceOptions.authToken = feed.authToken;
 
     SearchResponse response = await trinsic.wallet().searchWallet(SearchRequest(
-      query: "SELECT * FROM c WHERE c.data.type = ['VerifiableCredential', 'Message'] ORDER BY c.data.issuanceDate DESC",
-    ));
+          query: "SELECT * FROM c WHERE c.data.type = ['VerifiableCredential', 'Message'] ORDER BY c.data.issuanceDate DESC",
+        ));
 
     List<Credential> messages = [];
 
@@ -64,22 +67,27 @@ class FeedViewModel extends ViewModel<FeedViewModel> {
       trinsic.serviceOptions.authToken = feed.authToken;
 
       IssueFromTemplateResponse response = await trinsic.credential().issueFromTemplate(
-        IssueFromTemplateRequest(
-          includeGovernance: false,
-          templateId: 'https://schema.trinsic.cloud/eloquent-bhaskara-z2gg41u9wxxg/message',
-          valuesJson: jsonEncode({
-            'content': message,
-          }),
-        ),
-      );
+            IssueFromTemplateRequest(
+              includeGovernance: false,
+              templateId: 'https://schema.trinsic.cloud/eloquent-bhaskara-z2gg41u9wxxg/message',
+              valuesJson: jsonEncode({
+                'content': message,
+              }),
+            ),
+          );
 
       debugPrint('response: ' + response.toString());
 
       await trinsic.credential().send(SendRequest(
-        email: feed.email,
-        sendNotification: false,
-        documentJson: response.documentJson,
-      ));
+            email: feed.email,
+            sendNotification: false,
+            documentJson: response.documentJson,
+          ));
+
+      addMessage(Credential.fromJson({
+        'id': '',
+        'type': 'VerifiableCredential',
+      }..addAll({'data': jsonDecode(response.documentJson) as Map<String, dynamic>})));
     } catch (e) {
       debugPrint('sendMessage error: $e');
     }

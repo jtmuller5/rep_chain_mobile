@@ -35,15 +35,20 @@ class CredentialsView extends StatelessWidget {
                   return ValueListenableBuilder(
                       valueListenable: credentialService.credentials,
                       builder: (context, credentials, child) {
-                        return ListView.separated(
-                          itemCount: credentials.length,
-                          itemBuilder: (context, index) {
-                            Credential credential = credentials[index];
-                            return CredentialCard(credential: credential);
-                          },
-                          separatorBuilder: (context, index) => gap8,
-                          padding: const EdgeInsets.all(16.0),
-                        );
+
+                        if(credentials.isNotEmpty) {
+                          return ListView.separated(
+                            itemCount: credentials.length,
+                            itemBuilder: (context, index) {
+                              Credential credential = credentials[index];
+                              return CredentialCard(credential: credential);
+                            },
+                            separatorBuilder: (context, index) => gap8,
+                            padding: const EdgeInsets.all(16.0),
+                          );
+                        } else {
+                          return const Center(child: Text('No credentials yet'));
+                        }
                       });
                 }));
       },

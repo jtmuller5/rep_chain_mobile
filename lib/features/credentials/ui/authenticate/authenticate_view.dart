@@ -70,6 +70,7 @@ class AuthenticateView extends StatelessWidget {
                               gap32,
                               Text('Powered by', style: context.bodySmall.copyWith(color: context.onBackground.withOpacity(.5)), textAlign: TextAlign.center),
                               Image.asset('assets/images/trinsic.png',
+                              color: Theme.of(context).brightness == Brightness.light ? null: Colors.white,
                               height: 36,),
                             ],
                           ),

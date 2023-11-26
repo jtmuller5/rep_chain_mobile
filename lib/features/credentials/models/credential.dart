@@ -14,7 +14,6 @@ class Credential {
 
   bool? isNew;
 
-
   Credential({
     this.id,
     this.type,

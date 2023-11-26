@@ -1,5 +1,6 @@
 import 'package:code_on_the_rocks/code_on_the_rocks.dart';
 import 'package:flutter/material.dart';
+import 'package:rep_chain_mobile/app/services.dart';
 
 class BadgeListViewModelBuilder extends ViewModelBuilder<BadgeListViewModel> {
   const BadgeListViewModelBuilder({
@@ -20,6 +21,12 @@ class BadgeListViewModel extends ViewModel<BadgeListViewModel> {
     //'Twitter': 'assets/images/twitter.png',
     'Dev.to': 'assets/images/dev.png',
   };
+
+  @override
+  void initState() {
+    credentialService.loadCredentials();
+    super.initState();
+  }
 
   static BadgeListViewModel of_(BuildContext context) => getModel<BadgeListViewModel>(context);
 }

@@ -43,17 +43,19 @@ class FeedView extends StatelessWidget {
                       children: <Widget>[
                         TextField(
                           controller: model.messageController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             labelText: 'Enter your message',
                           ),
                           // You can add more properties to the TextField as needed
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
+                        ), TextButton(
+                          onPressed: () async {
                             // Add logic to send the message
-                            model.sendMessage(model.messageController.text);
+                            await model.sendMessage(model.messageController.text);
+
+                            model.messageController.clear();
+                            if(context.mounted) Navigator.pop(context);
                           },
-                          child: Text('Send Message'),
+                          child: const Text('Send Message'),
                         ),
                       ],
                     ),
