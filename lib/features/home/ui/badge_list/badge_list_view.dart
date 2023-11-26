@@ -27,11 +27,11 @@ class BadgeListView extends StatelessWidget {
                     child: Animate(
                       effects: [
                         SlideEffect(
-                          begin: Offset(0, 0.2),
-                          end: Offset(0, 0),
+                          begin: const Offset(0, 0.2),
+                          end: const Offset(0, 0),
                           delay: Duration(milliseconds: 100 * index),
                         ),
-                        FadeEffect(),
+                        const FadeEffect(),
                       ],
                       child: InkWell(
                         borderRadius: const BorderRadius.all(Radius.circular(8)),

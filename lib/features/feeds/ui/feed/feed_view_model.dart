@@ -20,6 +20,9 @@ class FeedViewModelBuilder extends ViewModelBuilder<FeedViewModel> {
 }
 
 class FeedViewModel extends ViewModel<FeedViewModel> {
+
+  TextEditingController messageController = TextEditingController();
+
   ValueNotifier<List<Credential>> messages = ValueNotifier([]);
 
   void setMessages(List<Credential> val) {
@@ -54,19 +57,18 @@ class FeedViewModel extends ViewModel<FeedViewModel> {
     setMessages(messages);
   }
 
-  Future<void> sendMessage() async {
+  Future<void> sendMessage(String message) async {
     try {
       Feed feed = (router.current.args as FeedRouteArgs).feed;
       TrinsicService trinsic = TrinsicService(null);
       trinsic.serviceOptions.authToken = feed.authToken;
 
-      debugPrint(' trinsic.serviceOptions.authToken: ' +  trinsic.serviceOptions.authToken.toString());
       IssueFromTemplateResponse response = await trinsic.credential().issueFromTemplate(
         IssueFromTemplateRequest(
           includeGovernance: false,
           templateId: 'https://schema.trinsic.cloud/eloquent-bhaskara-z2gg41u9wxxg/message',
           valuesJson: jsonEncode({
-            'content': 'Hello World',
+            'content': message,
           }),
         ),
       );
