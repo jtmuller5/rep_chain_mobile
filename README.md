@@ -92,6 +92,10 @@ The `flutter build` command defaults to using the release build configuration. T
 flutter build appbundle
 ```
 
+```agsl
+flutter build appbundle --dart-define-from-file=assets/config.json
+```
+
 ### Subsequent Releases
 Run the Fastlanes:
 ```agsl
